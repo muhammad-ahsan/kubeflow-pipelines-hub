@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+ipykernel = "*"
+kfp = "==1.8.19"
+google-cloud-aiplatform = "*"
+google-cloud-storage = "*"
+google-cloud-pipeline-components= "*"
+
+
+[dev-packages]
+pytest = "*"  
+
+[requires]
+python_version = "3.9"

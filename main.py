@@ -23,16 +23,17 @@ def fetch_pipeline(func_name):
     raise ModuleNotFoundError("Package 'pipelines' not found.")
 
 
-def main(pipeline_name: str = "custom_pipeline", k8s: str = "local", ):
+def main(pipeline_name: str = "custom_pipeline", env: str = "local-docker", ):
     artifact_registry: str = 'artifacts/'
     if not os.path.exists(artifact_registry):
         os.makedirs(artifact_registry)
-
     # Set up compute environment
-    if k8s == "local":
+    if env == "local":
+        local.init(runner=local.SubprocessRunner())
+    elif env == "local-docker":
         local.init(runner=local.DockerRunner())
     else:
-        raise EnvironmentError("Remote k8s not supported yet.")
+        raise EnvironmentError("Remote k8s environment is not supported yet.")
 
     # Load pipeline definition
     my_pipeline = fetch_pipeline(pipeline_name)

@@ -2,6 +2,11 @@
 
 This project is intended to be used as template for building new pipelines using Kubeflow.
 
+# How to run 
+
+### Reference: 
+https://www.kubeflow.org/docs/components/pipelines/v1/installation/localcluster-deployment/
+
 # Repository Structure
 ```
 /kubeflow-pipelines-hub

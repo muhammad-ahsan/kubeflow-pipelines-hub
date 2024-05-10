@@ -2,6 +2,12 @@
 
 This project is intended to be used as template for building new pipelines using Kubeflow.
 
+
+# Execute Locally
+
+### Dependencies
+- Docker
+
 # How to run 
 
 ### Reference: 

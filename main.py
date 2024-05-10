@@ -23,7 +23,7 @@ def fetch_pipeline(func_name):
     raise ModuleNotFoundError("Package 'pipelines' not found.")
 
 
-def main(pipeline_name: str = "ml_pipeline", env: str = "local-docker", ):
+def main(pipeline_name: str = "ml_pipeline", env: str = "local", ):
     artifact_registry: str = 'artifacts/'
     if not os.path.exists(artifact_registry):
         os.makedirs(artifact_registry)
@@ -32,8 +32,8 @@ def main(pipeline_name: str = "ml_pipeline", env: str = "local-docker", ):
 
     # Set up compute environment
     if env == "local":
-        local.init(runner=local.SubprocessRunner())
-    elif env == "local-docker":
+        # SubprocessRunner only supports running Lightweight Python Components.
+        # local.init(runner=local.SubprocessRunner())
         local.init(runner=local.DockerRunner())
     else:
         raise EnvironmentError("Remote k8s environment is not supported yet.")

@@ -1,0 +1,7 @@
+name: Data Quality
+description: Check data quality based on given data contract
+implementation:
+  container:
+    image: data-quality:latest
+    command: [python3, main.py]
+    args: []

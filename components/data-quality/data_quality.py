@@ -1,15 +1,18 @@
-import os
 import logging
+import os
+from pathlib import Path
+from typing import Union
 
 import yaml
 import pandas as pd
 
+
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 class DataQuality:
-    def __init__(self, data_contract_file):
+    def __init__(self, data_contract_file: Union[str, Path]):
 
         if not os.path.isfile(data_contract_file):
             raise FileNotFoundError(data_contract_file)
@@ -36,7 +39,7 @@ class DataQuality:
         for column, expected_type in self.data_contract["data_types"].items():
             if df[column].dtype != expected_type:
                 logger.warning(
-                    f"Invalid data type for column {column}. Expected: {expected_type}, Found: {df[column].dtype}")
+                    f"Invalid dataset type for column {column}. Expected: {expected_type}, Found: {df[column].dtype}")
                 return False
 
         missing_values_ratio = df.isnull().mean()
@@ -49,15 +52,4 @@ class DataQuality:
         return True
 
 
-def main():
-    data_file = "iris.csv"
-    dq = DataQuality("data-contract.yaml")
 
-    if dq.check_data_quality(data_file):
-        logger.info("Data quality check passed!")
-    else:
-        logger.warning("Data quality check failed")
-
-
-if __name__ == "__main__":
-    main()

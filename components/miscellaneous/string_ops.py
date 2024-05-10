@@ -1,3 +1,8 @@
+"""
+Lightweight Python Components
+Create a component from a self-contained Python function
+"""
+
 import kfp
 
 from kfp.v2.dsl import component

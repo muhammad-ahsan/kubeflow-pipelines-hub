@@ -23,10 +23,13 @@ def fetch_pipeline(func_name):
     raise ModuleNotFoundError("Package 'pipelines' not found.")
 
 
-def main(pipeline_name: str = "custom_pipeline", env: str = "local-docker", ):
+def main(pipeline_name: str = "ml_pipeline", env: str = "local-docker", ):
     artifact_registry: str = 'artifacts/'
     if not os.path.exists(artifact_registry):
         os.makedirs(artifact_registry)
+
+    package_path = artifact_registry + 'pipeline.json'
+
     # Set up compute environment
     if env == "local":
         local.init(runner=local.SubprocessRunner())
@@ -39,14 +42,13 @@ def main(pipeline_name: str = "custom_pipeline", env: str = "local-docker", ):
     my_pipeline = fetch_pipeline(pipeline_name)
 
     # Compile the pipeline
-    package_path = artifact_registry + 'pipeline.json'
+
     compiler.Compiler().compile(pipeline_func=my_pipeline,
                                 package_path=package_path)
 
-    # Executing pipeline
-    pipeline_task = my_pipeline(input_1="x", input_2="y")
-    logger.info(pipeline_task.output)
-    logger.info("Pipeline execution is successful.")
+    # Triggering pipeline
+    pipeline_task = my_pipeline()
+    logger.info(pipeline_task.outputs)
 
 
 if __name__ == "__main__":

@@ -42,7 +42,6 @@ def main(pipeline_name: str = "ml_pipeline", env: str = "local-docker", ):
     my_pipeline = fetch_pipeline(pipeline_name)
 
     # Compile the pipeline
-
     compiler.Compiler().compile(pipeline_func=my_pipeline,
                                 package_path=package_path)
 

@@ -1,0 +1,6 @@
+dependencies:
+  - name: Internet Check
+    type: internet
+  - name: Github URL Check
+    type: url
+    url: https://www.github.com

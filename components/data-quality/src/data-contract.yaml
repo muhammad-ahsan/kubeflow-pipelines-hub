@@ -1,0 +1,15 @@
+required_columns:
+  - sepal.length
+  - sepal.width
+  - petal.length
+  - petal.width
+  - variety
+
+data_types:
+  sepal.length: float
+  sepal.width: float
+  petal.length: float
+  petal.width: float
+  variety: str
+
+missing_values_threshold: 0.1

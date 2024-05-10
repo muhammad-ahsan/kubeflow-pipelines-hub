@@ -32,22 +32,19 @@ def main(pipeline_name: str = "ml_pipeline", env: str = "local", ):
 
     # Set up compute environment
     if env == "local":
-        # SubprocessRunner only supports running Lightweight Python Components.
-        # local.init(runner=local.SubprocessRunner())
+        # SubprocessRunner only supports running Lightweight Python Components
         local.init(runner=local.DockerRunner())
     else:
         raise EnvironmentError("Remote k8s environment is not supported yet.")
 
     # Load pipeline definition
-    my_pipeline = fetch_pipeline(pipeline_name)
+    custom_pipeline = fetch_pipeline(pipeline_name)
 
     # Compile the pipeline
-    compiler.Compiler().compile(pipeline_func=my_pipeline,
+    compiler.Compiler().compile(pipeline_func=custom_pipeline,
                                 package_path=package_path)
-
     # Triggering pipeline
-    pipeline_task = my_pipeline()
-    logger.info(pipeline_task.outputs)
+    _ = custom_pipeline()
 
 
 if __name__ == "__main__":

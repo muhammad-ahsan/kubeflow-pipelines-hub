@@ -1,13 +1,17 @@
-from kfp import dsl
+from kfp import dsl, components
 from kfp.dsl import ContainerSpec
 
 
 @dsl.container_component
-def data_quality_op() -> ContainerSpec:
+def pipeline_prerequisites_op() -> ContainerSpec:
     return ContainerSpec(
-        image='data-quality-image:latest',
+        image='pipeline-prerequisites:latest',
         command=['python', 'main.py'],
     )
+
+
+data_quality_comp = components.load_component_from_file(
+    'components/data-quality/component.yaml')
 
 
 @dsl.pipeline(
@@ -15,4 +19,5 @@ def data_quality_op() -> ContainerSpec:
     description='An end-to-end machine learning pipeline'
 )
 def ml_pipeline():
-    dq_op = data_quality_op()
+    dependency_check = pipeline_prerequisites_op()
+    data_quality = data_quality_comp()

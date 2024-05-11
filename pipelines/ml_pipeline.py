@@ -5,7 +5,7 @@ from kfp.dsl import ContainerSpec
 @dsl.container_component
 def pipeline_prerequisites_op() -> ContainerSpec:
     return ContainerSpec(
-        image='pipeline-prerequisites:latest',
+        image='mahsan/pipeline-prerequisites:latest',
         command=['python', 'main.py'],
     )
 

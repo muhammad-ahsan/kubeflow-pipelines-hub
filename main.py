@@ -3,10 +3,13 @@ import os
 import importlib
 import pkgutil
 
+import kfp
 from kfp import compiler, local
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+logger.info(f"Kubeflow Pipeline SDK version: {kfp.__version__}")
 
 
 def fetch_pipeline(func_name):

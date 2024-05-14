@@ -7,13 +7,11 @@ RUN apt-get update \
 # Install pipenv
 RUN pip install pipenv
 
-WORKDIR /app
+WORKDIR /pipeline-prerequisites
 
-COPY Pipfile Pipfile.lock ./
+COPY . .
 
 # Install dependencies using pipenv
 RUN pipenv install --deploy --system
-
-COPY . .
 
 CMD ["python", "main.py"]

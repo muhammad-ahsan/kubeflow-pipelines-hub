@@ -1,6 +1,12 @@
-# Kubeflow Pipeline Prerequisites
+# Container Components
+- Create a component via an arbitrary container definition. 
+- Can be written in any programming language 
+- Containerized application can be plugged into Kubeflow pipeline 
 
-## Overview
+
+## Pipeline Prerequisites
+
+### Overview
 This Python-based application serves as a critical first component in the Kubeflow pipeline. It checks all the necessary dependencies required for a Kubeflow pipeline to execute smoothly. By running a single Python script as a Docker container, it ensures that all prerequisites are met before initiating the pipeline execution. This proactive approach saves valuable time and resources by detecting and addressing any missing prerequisites at the earliest stage of the pipeline.
 
 ## Features

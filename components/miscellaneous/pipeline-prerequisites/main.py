@@ -1,29 +1,6 @@
 import yaml
-import requests
+from src.utils import check_dependency
 import dask.distributed as dd
-
-
-def check_internet():
-    try:
-        requests.get("https://www.google.com", timeout=3)
-        return True
-    except requests.ConnectionError:
-        return False
-
-
-def check_url(url):
-    try:
-        requests.get(url, timeout=3)
-        return True
-    except requests.ConnectionError:
-        return False
-
-
-def check_dependency(dependency):
-    if dependency["type"] == "internet":
-        return check_internet()
-    elif dependency["type"] == "url":
-        return check_url(dependency["url"])
 
 
 def main():
@@ -34,8 +11,13 @@ def main():
         futures = [client.submit(check_dependency, dependency) for dependency in dependencies]
         results = client.gather(futures)
 
+    success: bool = True
     for dependency, result in zip(dependencies, results):
         print(f"{dependency['name']}: {'OK' if result else 'FAILED'}")
+        if not result:
+            success = False
+    if not success:
+        raise Exception("Something requirements are not met")
 
 
 if __name__ == "__main__":

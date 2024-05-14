@@ -4,10 +4,16 @@ RUN pip install --upgrade pip setuptools
 RUN apt-get update \
     && apt-get install -y gcc python3-dev
 
+# Install pipenv
+RUN pip install pipenv
+
 WORKDIR /app
 
-COPY . .
+COPY Pipfile Pipfile.lock ./
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies using pipenv
+RUN pipenv install --deploy --system
+
+COPY . .
 
 CMD ["python", "main.py"]
